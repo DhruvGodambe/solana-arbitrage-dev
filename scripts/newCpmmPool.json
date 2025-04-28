@@ -1,0 +1,17 @@
+{
+    "txId": "23UYMzLQubjhYmKURdrjp1joLzMUKuyjekz6Bp6C9Ksi2L2hm7sTxzwaUau7woB5vHykC24NyKpNCjHvwe7e3VeU",
+    "poolKeys": {
+      "poolId": "4iBKb7Wyf6u7UTrJ6Le8sm7tT3drHYz4Pt597mK4PptB",
+      "configId": "9zSzfkYy6awexsHvmggeH36pfVUdDGyCcwmjT3AQPBj6",
+      "authority": "7rQ1QFNosMkUCuh7Z7fPbTHvh73b68sQYdirycEzJVuw",
+      "lpMint": "BZB1XrkcW6tiftdfdBE3oF9QVHzgGYAdQoRVXPLp2xFk",
+      "vaultA": "BzNdQQV2ta9xtLetR5trKXU9xYofSgwSAPskdvB5TupN",
+      "vaultB": "3a1s8fLGuDFdAZ1EkCKQqWW5gio4NmzcHFHk6dVjsH5e",
+      "observationId": "DahaPnF9WCKYJ6knuNmasxPMoBGBQuVaT24Mj2SppRU8",
+      "mintA": "8no6cA7qGPZHQkArh8tqQTa4by4FbPgaxfU6ycsUjWDw",
+      "mintB": "So11111111111111111111111111111111111111112",
+      "programId": "CPMDWBwJDtYax9qW7AyRuVC19Cc4L4Vcy4n2BHAbHkCW",
+      "poolFeeAccount": "G11FKBRaAkHAKuLCgLM6K6NUc9rTjPAznRCjZifrTQe2",
+      "feeConfig": "[object Object]"
+    }
+  }

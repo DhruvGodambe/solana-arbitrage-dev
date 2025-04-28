@@ -1,15 +1,75 @@
 use anchor_lang::prelude::*;
 
-declare_id!("Hpp18F9QoJM1bfubPHj4QEa3nnHf67FKbzUZ1HwQRbEZ");
+pub mod instructions;
+use instructions::*;
+
+declare_id!("GnCY3X3sFSTd5tNygUNuKQkXee5CUuJJwPuk4Lfqgjyh");
 
 #[program]
-pub mod solana_arbitrage_dev {
+pub mod cpmm_cpi_example {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        msg!("Greetings from: {:?}", ctx.program_id);
-        Ok(())
+    pub fn proxy_initialize(
+        ctx: Context<ProxyInitialize>,
+        init_amount_0: u64,
+        init_amount_1: u64,
+        open_time: u64,
+    ) -> Result<()> {
+        instructions::proxy_initialize(ctx, init_amount_0, init_amount_1, open_time)
     }
+
+    // pub fn proxy_initialize_random_pool(
+    //     ctx: Context<ProxyInitializeRandomPool>,
+    //     init_amount_0: u64,
+    //     init_amount_1: u64,
+    //     open_time: u64,
+    // ) -> Result<()> {
+    //     instructions::proxy_initialize_random_pool(ctx, init_amount_0, init_amount_1, open_time)
+    // }
+
+    // pub fn proxy_deposit(
+    //     ctx: Context<ProxyDeposit>,
+    //     lp_token_amount: u64,
+    //     maximum_token_0_amount: u64,
+    //     maximum_token_1_amount: u64,
+    // ) -> Result<()> {
+    //     instructions::proxy_deposit(
+    //         ctx,
+    //         lp_token_amount,
+    //         maximum_token_0_amount,
+    //         maximum_token_1_amount,
+    //     )
+    // }
+
+    // pub fn proxy_withdraw(
+    //     ctx: Context<ProxyWithdraw>,
+    //     lp_token_amount: u64,
+    //     minimum_token_0_amount: u64,
+    //     minimum_token_1_amount: u64,
+    // ) -> Result<()> {
+    //     instructions::proxy_withdraw(
+    //         ctx,
+    //         lp_token_amount,
+    //         minimum_token_0_amount,
+    //         minimum_token_1_amount,
+    //     )
+    // }
+
+    pub fn proxy_swap_base_input(
+        ctx: Context<ProxySwapBaseInput>,
+        amount_in: u64,
+        minimum_amount_out: u64,
+    ) -> Result<()> {
+        instructions::proxy_swap_base_input(ctx, amount_in, minimum_amount_out)
+    }
+
+    // pub fn proxy_swap_base_output(
+    //     ctx: Context<ProxySwapBaseOutput>,
+    //     max_amount_in: u64,
+    //     amount_out: u64,
+    // ) -> Result<()> {
+    //     instructions::proxy_swap_base_output(ctx, max_amount_in, amount_out)
+    // }
 }
 
 #[derive(Accounts)]
