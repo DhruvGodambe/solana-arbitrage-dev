@@ -1,5 +1,5 @@
 import { Program, BN } from "@coral-xyz/anchor";
-import { CpmmCpiExample } from "../../target/types/cpmm_cpi_example";
+import { SolanaArbitrageDev } from "../../target/types/solana_arbitrage_dev";
 import {
   Connection,
   ConfirmOptions,
@@ -55,7 +55,7 @@ export async function setupInitializeTest(
 }
 
 export async function setupDepositTest(
-  program: Program<CpmmCpiExample>,
+  program: Program<SolanaArbitrageDev>,
   connection: Connection,
   owner: Signer,
   transferFeeConfig: { transferFeeBasisPoints: number; MaxFee: number } = {
@@ -117,7 +117,7 @@ export async function setupDepositTest(
 }
 
 export async function setupSwapTest(
-  program: Program<CpmmCpiExample>,
+  program: Program<SolanaArbitrageDev>,
   connection: Connection,
   owner: Signer,
   transferFeeConfig: { transferFeeBasisPoints: number; MaxFee: number } = {
@@ -162,7 +162,7 @@ export async function setupSwapTest(
 }
 
 export async function initialize(
-  program: Program<CpmmCpiExample>,
+  program: Program<SolanaArbitrageDev>,
   creator: Signer,
   configAddress: PublicKey,
   token0: PublicKey,
@@ -266,7 +266,7 @@ export async function initialize(
 }
 
 export async function initializeRandomPool(
-  program: Program<CpmmCpiExample>,
+  program: Program<SolanaArbitrageDev>,
   creator: Signer,
   configAddress: PublicKey,
   token0: PublicKey,
@@ -366,7 +366,7 @@ export async function initializeRandomPool(
 }
 
 export async function deposit(
-  program: Program<CpmmCpiExample>,
+  program: Program<SolanaArbitrageDev>,
   owner: Signer,
   configAddress: PublicKey,
   token0: PublicKey,
@@ -451,7 +451,7 @@ export async function deposit(
 }
 
 export async function withdraw(
-  program: Program<CpmmCpiExample>,
+  program: Program<SolanaArbitrageDev>,
   owner: Signer,
   configAddress: PublicKey,
   token0: PublicKey,
@@ -540,7 +540,7 @@ export async function withdraw(
 }
 
 export async function swap_base_input(
-  program: Program<CpmmCpiExample>,
+  program: Program<SolanaArbitrageDev>,
   owner: Signer,
   configAddress: PublicKey,
   inputToken: PublicKey,
@@ -614,7 +614,7 @@ export async function swap_base_input(
 }
 
 export async function swap_base_output(
-  program: Program<CpmmCpiExample>,
+  program: Program<SolanaArbitrageDev>,
   owner: Signer,
   configAddress: PublicKey,
   inputToken: PublicKey,

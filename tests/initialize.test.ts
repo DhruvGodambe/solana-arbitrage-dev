@@ -1,6 +1,6 @@
 import * as anchor from "@coral-xyz/anchor";
 import { Program, BN } from "@coral-xyz/anchor";
-import { CpmmCpiExample } from "../target/types/cpmm_cpi_example";
+import { SolanaArbitrageDev } from "../target/types/solana_arbitrage_dev";
 import { setupInitializeTest, initialize } from "./utils";
 
 describe("initialize test", () => {
@@ -8,13 +8,14 @@ describe("initialize test", () => {
   const owner = anchor.Wallet.local().payer;
   console.log("owner: ", owner.publicKey.toString());
 
-  const program = anchor.workspace.CpmmCpiExample as Program<CpmmCpiExample>;
+  const program = anchor.workspace.SolanaArbitrageDev as Program<SolanaArbitrageDev>;
 
   const confirmOptions = {
     skipPreflight: true,
   };
 
-  it("create pool", async () => {
+  it("initialize", async () => {
+
     const { configAddress, token0, token0Program, token1, token1Program } =
       await setupInitializeTest(
         anchor.getProvider().connection,
@@ -23,8 +24,9 @@ describe("initialize test", () => {
         confirmOptions
       );
 
-    const initAmount0 = new BN(10000000000);
-    const initAmount1 = new BN(10000000000);
+      console.log(configAddress, token0, token0Program, token1, token1Program);
+    const initAmount0 = new BN(1000000);
+    const initAmount1 = new BN(1000000);
     const { poolAddress, cpSwapPoolState, tx } = await initialize(
       program,
       owner,
@@ -38,5 +40,7 @@ describe("initialize test", () => {
     );
 
     console.log("pool address: ", poolAddress.toString(), " tx:", tx);
+  }).addListener("error", (error) => {
+    console.error("Error in test:", error);
   });
 });

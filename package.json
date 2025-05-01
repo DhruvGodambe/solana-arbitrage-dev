@@ -4,10 +4,12 @@
     "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
     "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check"
   },
+  "type": "module",
   "dependencies": {
     "@coral-xyz/anchor": "^0.31.1",
     "@raydium-io/raydium-sdk-v2": "^0.1.126-alpha",
     "@solana/spl-token": "^0.4.13",
+    "@solana/web3.js": "^1.98.2",
     "bs58": "^6.0.0"
   },
   "devDependencies": {

@@ -3,10 +3,10 @@ use anchor_lang::prelude::*;
 pub mod instructions;
 use instructions::*;
 
-declare_id!("GnCY3X3sFSTd5tNygUNuKQkXee5CUuJJwPuk4Lfqgjyh");
+declare_id!("AhG6TxE9hBnYGjLzkT8FkhZ763CEAo5r8MjzxwrXhfoh");
 
 #[program]
-pub mod cpmm_cpi_example {
+pub mod solana_arbitrage_dev {
     use super::*;
 
     pub fn proxy_initialize(
