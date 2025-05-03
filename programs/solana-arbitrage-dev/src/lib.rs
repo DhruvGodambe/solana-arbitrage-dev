@@ -3,7 +3,7 @@ use anchor_lang::prelude::*;
 pub mod instructions;
 use instructions::*;
 
-declare_id!("AhG6TxE9hBnYGjLzkT8FkhZ763CEAo5r8MjzxwrXhfoh");
+declare_id!("D4VcAccDSPWigvYbgP3bqQAFnf7SqLF8YcA1f3jSYTNm");
 
 #[program]
 pub mod solana_arbitrage_dev {
@@ -63,13 +63,13 @@ pub mod solana_arbitrage_dev {
         instructions::proxy_swap_base_input(ctx, amount_in, minimum_amount_out)
     }
 
-    // pub fn proxy_swap_base_output(
-    //     ctx: Context<ProxySwapBaseOutput>,
-    //     max_amount_in: u64,
-    //     amount_out: u64,
-    // ) -> Result<()> {
-    //     instructions::proxy_swap_base_output(ctx, max_amount_in, amount_out)
-    // }
+    pub fn proxy_swap_base_output(
+        ctx: Context<ProxySwapBaseOutput>,
+        max_amount_in: u64,
+        amount_out: u64,
+    ) -> Result<()> {
+        instructions::proxy_swap_base_output(ctx, max_amount_in, amount_out)
+    }
 }
 
 #[derive(Accounts)]

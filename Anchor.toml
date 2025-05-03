@@ -7,7 +7,7 @@ resolution = true
 skip-lint = false
 
 [programs.devnet]
-solana_arbitrage_dev = "AhG6TxE9hBnYGjLzkT8FkhZ763CEAo5r8MjzxwrXhfoh"
+solana_arbitrage_dev = "D4VcAccDSPWigvYbgP3bqQAFnf7SqLF8YcA1f3jSYTNm"
 
 [registry]
 url = "https://api.apr.dev"

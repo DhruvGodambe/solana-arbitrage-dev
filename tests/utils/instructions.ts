@@ -223,46 +223,54 @@ export async function initialize(
     false,
     token1Program
   );
-  const tx = await program.methods
-    .proxyInitialize(initAmount.initAmount0, initAmount.initAmount1, new BN(0))
-    .accounts({
-      cpSwapProgram: cpSwapProgram,
-      creator: creator.publicKey,
-      ammConfig: configAddress,
-      authority: auth,
-      poolState: poolAddress,
-      token0Mint: token0,
-      token1Mint: token1,
-      lpMint: lpMintAddress,
-      creatorToken0,
-      creatorToken1,
-      creatorLpToken: creatorLpTokenAddress,
-      token0Vault: vault0,
-      token1Vault: vault1,
-      createPoolFee,
-      observationState: observationAddress,
-      tokenProgram: TOKEN_PROGRAM_ID,
-      token0Program: token0Program,
-      token1Program: token1Program,
-      systemProgram: SystemProgram.programId,
-      rent: SYSVAR_RENT_PUBKEY,
-    })
-    .preInstructions([
-      ComputeBudgetProgram.setComputeUnitLimit({ units: 400000 }),
-    ])
-    .rpc(confirmOptions);
-  const accountInfo = await program.provider.connection.getAccountInfo(
-    poolAddress
-  );
-  const poolState = CpmmPoolInfoLayout.decode(accountInfo.data);
-  const cpSwapPoolState = {
-    ammConfig: poolState.configId,
-    token0Mint: poolState.mintA,
-    token0Program: poolState.mintProgramA,
-    token1Mint: poolState.mintB,
-    token1Program: poolState.mintProgramB,
-  };
-  return { poolAddress, cpSwapPoolState, tx };
+  console.log("poolAddress: ", poolAddress.toString());
+
+  try {
+
+    const tx = await program.methods
+      .proxyInitialize(initAmount.initAmount0, initAmount.initAmount1, new BN(0))
+      .accounts({
+        cpSwapProgram: cpSwapProgram,
+        creator: creator.publicKey,
+        ammConfig: configAddress,
+        authority: auth,
+        poolState: poolAddress,
+        token0Mint: token0,
+        token1Mint: token1,
+        lpMint: lpMintAddress,
+        creatorToken0,
+        creatorToken1,
+        creatorLpToken: creatorLpTokenAddress,
+        token0Vault: vault0,
+        token1Vault: vault1,
+        createPoolFee,
+        observationState: observationAddress,
+        tokenProgram: TOKEN_PROGRAM_ID,
+        token0Program: token0Program,
+        token1Program: token1Program,
+        systemProgram: SystemProgram.programId,
+        rent: SYSVAR_RENT_PUBKEY,
+      })
+      .preInstructions([
+        ComputeBudgetProgram.setComputeUnitLimit({ units: 400000 }),
+      ])
+      .rpc(confirmOptions);
+    const accountInfo = await program.provider.connection.getAccountInfo(
+      poolAddress
+    );
+    const poolState = CpmmPoolInfoLayout.decode(accountInfo.data);
+    const cpSwapPoolState = {
+      ammConfig: poolState.configId,
+      token0Mint: poolState.mintA,
+      token0Program: poolState.mintProgramA,
+      token1Mint: poolState.mintB,
+      token1Program: poolState.mintProgramB,
+    };
+    return { poolAddress, cpSwapPoolState, tx };
+  } catch (error) {
+    console.error("Error in initialize:", error);
+    return { poolAddress, cpSwapPoolState: {} };
+  }
 }
 
 export async function initializeRandomPool(
@@ -558,6 +566,7 @@ export async function swap_base_input(
     outputToken,
     cpSwapProgram
   );
+  console.log("poolAddress: ", poolAddress.toString());
 
   const [inputVault] = await getPoolVaultAddress(
     poolAddress,
@@ -608,7 +617,7 @@ export async function swap_base_input(
     .preInstructions([
       ComputeBudgetProgram.setComputeUnitLimit({ units: 400000 }),
     ])
-    .rpc(confirmOptions);
+    .rpc();
 
   return tx;
 }
