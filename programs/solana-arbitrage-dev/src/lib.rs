@@ -3,72 +3,41 @@ use anchor_lang::prelude::*;
 pub mod instructions;
 use instructions::*;
 
+declare_program!(dlmm);
+
+use crate::dlmm_swap::*;
+
 declare_id!("D4VcAccDSPWigvYbgP3bqQAFnf7SqLF8YcA1f3jSYTNm");
 
 #[program]
 pub mod solana_arbitrage_dev {
     use super::*;
 
-    pub fn proxy_initialize(
-        ctx: Context<ProxyInitialize>,
-        init_amount_0: u64,
-        init_amount_1: u64,
-        open_time: u64,
+    // Meteora DLMM Swap
+    pub fn dlmm_swap<'a, 'b, 'c, 'info>(
+        ctx: Context<'a, 'b, 'c, 'info, DlmmSwap<'info>>,
+        amount_in: u64,
+        min_amount_out: u64,
     ) -> Result<()> {
-        instructions::proxy_initialize(ctx, init_amount_0, init_amount_1, open_time)
+        instructions::meteora_dlmm::dlmm_swap::handle_dlmm_swap(ctx, amount_in, min_amount_out)
     }
 
-    // pub fn proxy_initialize_random_pool(
-    //     ctx: Context<ProxyInitializeRandomPool>,
-    //     init_amount_0: u64,
-    //     init_amount_1: u64,
-    //     open_time: u64,
-    // ) -> Result<()> {
-    //     instructions::proxy_initialize_random_pool(ctx, init_amount_0, init_amount_1, open_time)
-    // }
-
-    // pub fn proxy_deposit(
-    //     ctx: Context<ProxyDeposit>,
-    //     lp_token_amount: u64,
-    //     maximum_token_0_amount: u64,
-    //     maximum_token_1_amount: u64,
-    // ) -> Result<()> {
-    //     instructions::proxy_deposit(
-    //         ctx,
-    //         lp_token_amount,
-    //         maximum_token_0_amount,
-    //         maximum_token_1_amount,
-    //     )
-    // }
-
-    // pub fn proxy_withdraw(
-    //     ctx: Context<ProxyWithdraw>,
-    //     lp_token_amount: u64,
-    //     minimum_token_0_amount: u64,
-    //     minimum_token_1_amount: u64,
-    // ) -> Result<()> {
-    //     instructions::proxy_withdraw(
-    //         ctx,
-    //         lp_token_amount,
-    //         minimum_token_0_amount,
-    //         minimum_token_1_amount,
-    //     )
-    // }
-
+    // Raydium Input Swap
     pub fn proxy_swap_base_input(
         ctx: Context<ProxySwapBaseInput>,
         amount_in: u64,
         minimum_amount_out: u64,
     ) -> Result<()> {
-        instructions::proxy_swap_base_input(ctx, amount_in, minimum_amount_out)
+        instructions::raydium_cpmm::proxy_swap_base_input(ctx, amount_in, minimum_amount_out)
     }
 
+    // Raydium Output Swap
     pub fn proxy_swap_base_output(
         ctx: Context<ProxySwapBaseOutput>,
         max_amount_in: u64,
         amount_out: u64,
     ) -> Result<()> {
-        instructions::proxy_swap_base_output(ctx, max_amount_in, amount_out)
+        instructions::raydium_cpmm::proxy_swap_base_output(ctx, max_amount_in, amount_out)
     }
 }
 

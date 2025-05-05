@@ -20,6 +20,8 @@ devnet = ["raydium-cpmm-cpi/devnet"]
 anchor-lang = "=0.31.0"
 anchor-spl = { version = "=0.31.0", features = ["memo"] }
 raydium-cpmm-cpi = { git = "https://github.com/raydium-io/raydium-cpi", package = "raydium-cpmm-cpi", branch = "anchor-0.31.0" }
+bytemuck = { version = "1.13.1", features = ["derive", "min_const_generics"] }
+
 
 [dev-dependencies]
 litesvm = "0.6.1"

@@ -1,8 +1,8 @@
 import raydiumPkg from '@raydium-io/raydium-sdk-v2'
 const {ApiV3PoolInfoStandardItemCpmm, CpmmKeys, CpmmRpcData, CurveCalculator}: any = raydiumPkg;
-import { initSdk } from './config.ts';
+import { initSdk } from './config.js';
 import BN from 'bn.js'
-import { isValidCpmm } from './utils.ts';
+import { isValidCpmm } from './utils.js';
 import { NATIVE_MINT } from '@solana/spl-token'
 // import { printSimulateInfo } from './utils';
 import { PublicKey } from '@solana/web3.js'
