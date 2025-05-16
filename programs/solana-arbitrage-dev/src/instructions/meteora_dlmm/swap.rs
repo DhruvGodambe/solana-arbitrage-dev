@@ -100,3 +100,47 @@ pub fn handle_dlmm_swap<'a, 'b, 'c, 'info>(
         .with_remaining_accounts(ctx.remaining_accounts.to_vec());
     dlmm::cpi::swap(cpi_context, amount_in, min_amount_out)
 }
+
+// pub fn handle_dlmm_swap2<'info>(
+//     lb_pair: UncheckedAccount<'info>,
+//     bin_array_bitmap_extension: Option<UncheckedAccount<'info>>,
+//     reserve_x: UncheckedAccount<'info>,
+//     reserve_y: UncheckedAccount<'info>,
+//     user_token_in: UncheckedAccount<'info>,
+//     user_token_out: UncheckedAccount<'info>,
+//     token_x_mint: UncheckedAccount<'info>,
+//     token_y_mint: UncheckedAccount<'info>,
+//     oracle: UncheckedAccount<'info>,
+//     host_fee_in: Option<UncheckedAccount<'info>>,
+//     user: Signer<'info>,
+//     token_x_program: UncheckedAccount<'info>,
+//     token_y_program: UncheckedAccount<'info>,
+//     dlmm_program: UncheckedAccount<'info>,
+//     event_authority: UncheckedAccount<'info>,
+//     remaining_accounts: &[AccountInfo<'info>],
+//     amount_in: u64,
+//     min_amount_out: u64,
+// ) -> Result<()> {
+//     let accounts = dlmm::cpi::accounts::Swap {
+//         lb_pair,
+//         bin_array_bitmap_extension,
+//         reserve_x,
+//         reserve_y,
+//         user_token_in,
+//         user_token_out,
+//         token_x_mint,
+//         token_y_mint,
+//         oracle,
+//         host_fee_in,
+//         user,
+//         token_x_program,
+//         token_y_program,
+//         event_authority,
+//         program: dlmm_program.clone(),
+//     };
+
+//     let cpi_ctx = CpiContext::new(dlmm_program, accounts)
+//         .with_remaining_accounts(remaining_accounts.to_vec());
+
+//     dlmm::cpi::swap(cpi_ctx, amount_in, min_amount_out)
+// }

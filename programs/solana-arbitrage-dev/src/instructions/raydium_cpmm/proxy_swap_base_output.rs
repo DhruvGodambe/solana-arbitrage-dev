@@ -97,3 +97,40 @@ pub fn proxy_swap_base_output(
     let cpi_context = CpiContext::new(ctx.accounts.cp_swap_program.to_account_info(), cpi_accounts);
     cpi::swap_base_output(cpi_context, max_amount_in, amount_out)
 }
+
+pub fn proxy_swap_base_output2<'info>(
+    payer: Signer<'info>,
+    authority: UncheckedAccount<'info>,
+    amm_config: Box<Account<'info, AmmConfig>>,
+    pool_state: AccountLoader<'info, PoolState>,
+    input_token_account: Box<InterfaceAccount<'info, TokenAccount>>,
+    output_token_account: Box<InterfaceAccount<'info, TokenAccount>>,
+    input_vault: Box<InterfaceAccount<'info, TokenAccount>>,
+    output_vault: Box<InterfaceAccount<'info, TokenAccount>>,
+    input_token_program: Interface<'info, TokenInterface>,
+    output_token_program: Interface<'info, TokenInterface>,
+    input_token_mint: Box<InterfaceAccount<'info, Mint>>,
+    output_token_mint: Box<InterfaceAccount<'info, Mint>>,
+    observation_state: AccountLoader<'info, ObservationState>,
+    cp_swap_program: Program<'info, RaydiumCpmm>,
+    max_amount_in: u64,
+    amount_out: u64,
+) -> Result<()> {
+    let cpi_accounts = cpi::accounts::Swap {
+        payer: payer.to_account_info(),
+        authority: authority.to_account_info(),
+        amm_config: amm_config.to_account_info(),
+        pool_state: pool_state.to_account_info(),
+        input_token_account: input_token_account.to_account_info(),
+        output_token_account: output_token_account.to_account_info(),
+        input_vault: input_vault.to_account_info(),
+        output_vault: output_vault.to_account_info(),
+        input_token_program: input_token_program.to_account_info(),
+        output_token_program: output_token_program.to_account_info(),
+        input_token_mint: input_token_mint.to_account_info(),
+        output_token_mint: output_token_mint.to_account_info(),
+        observation_state: observation_state.to_account_info(),
+    };
+    let cpi_context = CpiContext::new(cp_swap_program.to_account_info(), cpi_accounts);
+    cpi::swap_base_output(cpi_context, max_amount_in, amount_out)
+}

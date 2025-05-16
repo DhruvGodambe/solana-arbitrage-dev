@@ -687,7 +687,7 @@ export async function swap_base_output(
       inputTokenMint: inputToken,
       outputTokenMint: outputToken,
       observationState: observationAddress,
-    })
+    } as any)
     .preInstructions([
       ComputeBudgetProgram.setComputeUnitLimit({ units: 400000 }),
     ])

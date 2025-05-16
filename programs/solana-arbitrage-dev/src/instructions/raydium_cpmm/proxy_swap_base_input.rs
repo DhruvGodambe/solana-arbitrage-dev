@@ -20,7 +20,7 @@ pub struct ProxySwapBaseInput<'info> {
       ],
       seeds::program = cp_swap_program.key(),
       bump,
-  )]
+    )]
     pub authority: UncheckedAccount<'info>,
 
     /// The factory state to read protocol fees
@@ -43,14 +43,14 @@ pub struct ProxySwapBaseInput<'info> {
     #[account(
       mut,
       constraint = input_vault.key() == pool_state.load()?.token_0_vault || input_vault.key() == pool_state.load()?.token_1_vault
-  )]
+    )]
     pub input_vault: Box<InterfaceAccount<'info, TokenAccount>>,
 
     /// The vault token account for output token
     #[account(
       mut,
       constraint = output_vault.key() == pool_state.load()?.token_0_vault || output_vault.key() == pool_state.load()?.token_1_vault
-  )]
+    )]
     pub output_vault: Box<InterfaceAccount<'info, TokenAccount>>,
 
     /// SPL program for input token transfers
@@ -62,13 +62,13 @@ pub struct ProxySwapBaseInput<'info> {
     /// The mint of input token
     #[account(
       address = input_vault.mint
-  )]
+    )]
     pub input_token_mint: Box<InterfaceAccount<'info, Mint>>,
 
     /// The mint of output token
     #[account(
       address = output_vault.mint
-  )]
+    )]
     pub output_token_mint: Box<InterfaceAccount<'info, Mint>>,
     /// The program account for the most recent oracle observation
     #[account(mut, address = pool_state.load()?.observation_key)]
@@ -96,5 +96,42 @@ pub fn proxy_swap_base_input(
         observation_state: ctx.accounts.observation_state.to_account_info(),
     };
     let cpi_context = CpiContext::new(ctx.accounts.cp_swap_program.to_account_info(), cpi_accounts);
+    cpi::swap_base_input(cpi_context, amount_in, minimum_amount_out)
+}
+
+pub fn proxy_swap_base_input2<'info>(
+    payer: Signer<'info>,
+    authority: UncheckedAccount<'info>,
+    amm_config: Box<Account<'info, AmmConfig>>,
+    pool_state: AccountLoader<'info, PoolState>,
+    input_token_account: Box<InterfaceAccount<'info, TokenAccount>>,
+    output_token_account: Box<InterfaceAccount<'info, TokenAccount>>,
+    input_vault: Box<InterfaceAccount<'info, TokenAccount>>,
+    output_vault: Box<InterfaceAccount<'info, TokenAccount>>,
+    input_token_program: Interface<'info, TokenInterface>,
+    output_token_program: Interface<'info, TokenInterface>,
+    input_token_mint: Box<InterfaceAccount<'info, Mint>>,
+    output_token_mint: Box<InterfaceAccount<'info, Mint>>,
+    observation_state: AccountLoader<'info, ObservationState>,
+    cp_swap_program: Program<'info, RaydiumCpmm>,
+    amount_in: u64,
+    minimum_amount_out: u64,
+) -> Result<()> {
+    let cpi_accounts = cpi::accounts::Swap {
+        payer: payer.to_account_info(),
+        authority: authority.to_account_info(),
+        amm_config: amm_config.to_account_info(),
+        pool_state: pool_state.to_account_info(),
+        input_token_account: input_token_account.to_account_info(),
+        output_token_account: output_token_account.to_account_info(),
+        input_vault: input_vault.to_account_info(),
+        output_vault: output_vault.to_account_info(),
+        input_token_program: input_token_program.to_account_info(),
+        output_token_program: output_token_program.to_account_info(),
+        input_token_mint: input_token_mint.to_account_info(),
+        output_token_mint: output_token_mint.to_account_info(),
+        observation_state: observation_state.to_account_info(),
+    };
+    let cpi_context = CpiContext::new(cp_swap_program.to_account_info(), cpi_accounts);
     cpi::swap_base_input(cpi_context, amount_in, minimum_amount_out)
 }
